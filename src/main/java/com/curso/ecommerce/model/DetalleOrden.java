@@ -8,6 +8,8 @@ public class DetalleOrden {
 	private double  precio;
 	private double total;
 	
+	private double total1;
+	
 	public DetalleOrden() {
 		
 	}
