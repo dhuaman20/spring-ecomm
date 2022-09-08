@@ -1,8 +1,22 @@
 package com.curso.ecommerce.model;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "usuarios") // le cambiamos el nombre a la clase usuario a usuarios
+
 public class Usuario {
-		
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Esta anotacion hace que el id se ha incrementable
 	private Integer id;
+    
 	private String nombre;
 	private String username;
 	private String email;
@@ -10,6 +24,18 @@ public class Usuario {
 	private String telefono;
 	private String tipo;
 	private String password;
+	
+	// jpa el atributo  de 1 a muchos @OneToMany y va estar mapeado por el campo usuario con esto relacionamos usuario y producto (entidades)
+	@OneToMany(mappedBy = "usuario")
+	private List<Producto> productos;
+	
+	
+	
+	// relacion de usuario y producto
+	@OneToMany(mappedBy = "usuario")
+	private List<Orden> ordenes;
+	
+	
 	
 	// contructor sin parametros
 	public Usuario() {
@@ -78,6 +104,22 @@ public class Usuario {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", username=" + username + ", email=" + email
+				+ ", direccion=" + direccion + ", telefono=" + telefono + ", tipo=" + tipo + ", password=" + password
+				+ ", productos=" + productos + "]";
 	}
 	
 	
